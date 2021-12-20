@@ -9,7 +9,6 @@ on:
     - '.github/workflows/build-common.yml'
     - 'Directory.Build.props'
     - 'src/Directory.Build.props'
-    - 'src/NetEvolve.HealthChecks.Abstractions.Shared/**'
     - 'src/NetEvolve.HealthChecks/**'
     - 'tests/NetEvolve.HealthChecks.Tests/**'
   pull_request:
@@ -18,7 +17,6 @@ on:
     - '.github/workflows/build-common.yml'
     - 'Directory.Build.props'
     - 'src/Directory.Build.props'
-    - 'src/NetEvolve.HealthChecks.Abstractions.Shared/**'
     - 'src/NetEvolve.HealthChecks/**'
     - 'tests/NetEvolve.HealthChecks.Tests/**'
 
