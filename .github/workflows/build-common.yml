@@ -7,6 +7,8 @@ on:
     branches: [ main ]
     paths:
     - '.github/workflows/build-common.yml'
+    - 'Directory.Build.props'
+    - 'src/Directory.Build.props'
     - 'src/NetEvolve.HealthChecks.Abstractions.Shared/**'
     - 'src/NetEvolve.HealthChecks/**'
     - 'tests/NetEvolve.HealthChecks.Tests/**'
@@ -14,6 +16,8 @@ on:
     branches: [ main ]
     paths:
     - '.github/workflows/build-common.yml'
+    - 'Directory.Build.props'
+    - 'src/Directory.Build.props'
     - 'src/NetEvolve.HealthChecks.Abstractions.Shared/**'
     - 'src/NetEvolve.HealthChecks/**'
     - 'tests/NetEvolve.HealthChecks.Tests/**'
@@ -91,7 +95,7 @@ jobs:
     name: Publish NuGet Packages
     needs: [ build ]
     runs-on: ubuntu-latest
-    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore') }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
     steps:
     - name: Download Artifacts
