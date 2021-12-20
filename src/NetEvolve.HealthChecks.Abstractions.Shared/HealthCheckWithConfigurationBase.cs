@@ -1,11 +1,6 @@
 namespace NetEvolve.HealthChecks.Abstractions;
 
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Options;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
-
+#if USE_HEALTHCHECK_WITH_CONFIG
 internal abstract class HealthCheckWithConfigurationBase<TConfiguration> : IHealthCheck
 {
   private readonly IOptionsMonitor<TConfiguration> _optionsMonitor;
@@ -33,5 +28,6 @@ internal abstract class HealthCheckWithConfigurationBase<TConfiguration> : IHeal
     }
   }
 
-  protected abstract Task<HealthCheckResult> ExecuteHealthCheckAsync(TConfiguration options, HealthCheckContext context, CancellationToken cancellationToken);
+  protected abstract ValueTask<HealthCheckResult> ExecuteHealthCheckAsync(TConfiguration options, HealthCheckContext context, CancellationToken cancellationToken);
 }
+#endif
