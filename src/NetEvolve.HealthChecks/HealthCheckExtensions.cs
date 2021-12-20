@@ -13,5 +13,9 @@ public static class HealthCheckExtensions
   /// <param name="tags">A list of tags that can be used to filter health checks.</param>
   /// <returns>Instance of <see cref="IHealthChecksBuilder"/>.</returns>
   public static IHealthChecksBuilder AddSelf(this IHealthChecksBuilder builder, params string[] tags)
-    => builder.AddCheck("self", () => HealthCheckResult.Healthy(), new[] { "self", "readiness" }.Union(tags));
+  {
+    return builder.AddCheck("self", Self, new[] { "self", "readiness" }.Union(tags));
+
+    static HealthCheckResult Self() => HealthCheckResult.Healthy();
+  }
 }
