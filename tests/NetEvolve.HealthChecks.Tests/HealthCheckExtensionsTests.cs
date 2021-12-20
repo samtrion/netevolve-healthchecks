@@ -3,9 +3,11 @@ namespace NetEvolve.HealthChecks.Tests;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Xunit;
 
+[ExcludeFromCodeCoverage]
 public class HealthCheckExtensionsTests
 {
   [Fact]
