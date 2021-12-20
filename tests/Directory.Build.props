@@ -9,7 +9,8 @@
     <NoWarn>$(NoWarn);CA1054;CA1707;VSTHRD200;IDE0079;</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup>
-  </PropertyGroup>
+  <ItemGroup Condition="'$(OutputType)' == 'Library'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
 </Project>

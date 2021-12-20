@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{631E65AB-DF8D-4DD5-BBA8-B2EA20C51133}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		GitVersion.yml = GitVersion.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{22701C71-CED4-4D3B-BC00-AA96C95453BB}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{71AB613F-A099-40FD-939A-E9C309BB374E}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NetEvolve.HealthChecks.Abstractions.Shared", "src\NetEvolve.HealthChecks.Abstractions.Shared\NetEvolve.HealthChecks.Abstractions.Shared.shproj", "{3AD3061A-C752-41AC-A58B-7C54E80D12E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEvolve.HealthChecks", "src\NetEvolve.HealthChecks\NetEvolve.HealthChecks.csproj", "{EF42BCD2-6307-4352-A12A-972645416EFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEvolve.HealthChecks.Tests", "tests\NetEvolve.HealthChecks.Tests\NetEvolve.HealthChecks.Tests.csproj", "{A2609AB8-614E-46EE-855C-E611C6618300}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\NetEvolve.HealthChecks.Abstractions.Shared\NetEvolve.HealthChecks.Abstractions.Shared.projitems*{3ad3061a-c752-41ac-a58b-7c54e80d12e4}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF42BCD2-6307-4352-A12A-972645416EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF42BCD2-6307-4352-A12A-972645416EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF42BCD2-6307-4352-A12A-972645416EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF42BCD2-6307-4352-A12A-972645416EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2609AB8-614E-46EE-855C-E611C6618300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2609AB8-614E-46EE-855C-E611C6618300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2609AB8-614E-46EE-855C-E611C6618300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2609AB8-614E-46EE-855C-E611C6618300}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AD3061A-C752-41AC-A58B-7C54E80D12E4} = {22701C71-CED4-4D3B-BC00-AA96C95453BB}
+		{EF42BCD2-6307-4352-A12A-972645416EFA} = {22701C71-CED4-4D3B-BC00-AA96C95453BB}
+		{A2609AB8-614E-46EE-855C-E611C6618300} = {71AB613F-A099-40FD-939A-E9C309BB374E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E96249D-CCE6-4A79-AD6A-511C3B12F145}
+	EndGlobalSection
+EndGlobal
