@@ -17,7 +17,6 @@
 
     <!-- Package Configuration -->
     <PackageId>$(MSBuildProjectName)</PackageId>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/samtrion/netevolve-healthchecks</PackageProjectUrl>
