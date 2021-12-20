@@ -1,10 +1,12 @@
 namespace NetEvolve.HealthChecks.Abstractions;
 
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
+#if USE_HEALTHCHECK
 internal abstract class HealthCheckBase : IHealthCheck
 {
   public HealthCheckBase() { }
@@ -22,5 +24,6 @@ internal abstract class HealthCheckBase : IHealthCheck
     }
   }
 
-  protected abstract Task<HealthCheckResult> ExecuteHealthCheckAsync(HealthCheckContext context, CancellationToken cancellationToken);
+  protected abstract ValueTask<HealthCheckResult> ExecuteHealthCheckAsync(HealthCheckContext context, CancellationToken cancellationToken);
 }
+#endif
