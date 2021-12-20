@@ -17,10 +17,11 @@
 
     <!-- Package Configuration -->
     <PackageId>$(MSBuildProjectName)</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/samtrion/netevolve-healthchecks</PackageProjectUrl>
-    <PackageTags>HealthChecks;HealthCheck;healthy;</PackageTags>
+    <PackageTags>HealthChecks;HealthCheck;Healthy;</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/samtrion/netevolve-healthchecks</RepositoryUrl>
     <Authors>Martin Stühmer</Authors>
@@ -40,10 +41,6 @@
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
   <ItemGroup>
