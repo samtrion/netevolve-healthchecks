@@ -1,0 +1,59 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1573;1591;1712;IDE0090;CA2252;CA1014;</NoWarn>
+
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+    <_SkipUpgradeNetAnalyzersNuGetWarning>true</_SkipUpgradeNetAnalyzersNuGetWarning>
+
+    <!-- Package Configuration -->
+    <PackageId>$(MSBuildProjectName)</PackageId>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl><!-- Insert ProjectURL --></PackageProjectUrl>
+    <PackageTags><!-- Insert Package Tags --></PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl><!-- Insert RepositoryURL --></RepositoryUrl>
+    <Authors><!-- Insert Authors --></Authors>
+    <Product><!-- Insert Productname --></Product>
+
+    <CopyrightYearStart>2021</CopyrightYearStart>
+    <CopyrightYear>$([System.DateTime]::Now.Year)</CopyrightYear>
+    <Copyright Condition="$(CopyrightYear) > $(CopyrightYearStart)">Copyright @ $(Authors) $(CopyrightYearStart) - $(CopyrightYear)</Copyright>
+    <Copyright Condition="$(CopyrightYear) == $(CopyrightYearStart)">Copyright @ $(Authors) $(CopyrightYearStart)</Copyright>
+
+    <!--
+      Deactivates warnings for end-of-life target frameworks
+      https://andrewlock.net/fixing-build-warning-netsdk1138-when-building-end-of-life-projects-with-dotnet-5/
+      -->
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>    
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.0.64">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
