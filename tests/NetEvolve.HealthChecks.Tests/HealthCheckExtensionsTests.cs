@@ -47,4 +47,20 @@ public class HealthCheckExtensionsTests
 
     Assert.Equal(3, healthCheck.Tags.Count);
   }
+
+  [Fact]
+  public void Add_SelfCheck_MultipleTimes_Expected()
+  {
+    var services = new ServiceCollection();
+
+    _ = services
+      .AddHealthChecks()
+      .AddSelf()
+      .AddSelf();
+    var serviceProvider = services.BuildServiceProvider();
+
+    var healthChecksOptions = serviceProvider.GetService<IOptions<HealthCheckServiceOptions>>()!;
+
+    Assert.Equal(1, healthChecksOptions.Value.Registrations.Count);
+  }
 }
