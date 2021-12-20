@@ -103,4 +103,4 @@ jobs:
         path: packages
 
     - name: Publish NuGet Package
-      run: dotnet nuget push "packages/*.nupkg" -s https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_TOKEN }}
+      run: dotnet nuget push "packages/NetEvolve.HealthChecks.*.nupkg" -s https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_TOKEN }}
