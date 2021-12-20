@@ -1,0 +1,78 @@
+name: Build NetEvolve.HealtChecks
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+    paths:
+    - 'src/**'
+    - '!tests/**'
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo in the console output
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience to skip caching NuGet packages and speed up the build
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry to Microsoft
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: |
+          5.0.x
+          6.0.100
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.11
+      with:
+        versionSpec: '5.x'
+
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.11
+      with:
+        useConfigFile: true
+        configFilePath: GitVersion.yml
+
+    - name: Restore NuGet Dependencies
+      run: dotnet restore
+
+    - name: Build Solution
+      run: dotnet build --configuration Release /p:Version=$GITVERSION_FULLSEMVER --no-restore
+
+    - name: Test Solution .NET 5
+      run: dotnet test --configuration Release /p:Version=$GITVERSION_FULLSEMVER -f net5.0 --no-build --no-restore --verbosity minimal /p:CollectCoverage=true /p:CoverletOutput=\"$GITHUB_WORKSPACE/results/\" /p:MergeWith=\"$GITHUB_WORKSPACE/results/coverage.net5.0.json\" /p:CoverletOutputFormat=\"opencover,json\" -m:1
+
+    - name: Test Solution .NET 6
+      run: dotnet test --configuration Release /p:Version=$GITVERSION_FULLSEMVER -f net6.0 --no-build --no-restore --verbosity minimal /p:CollectCoverage=true /p:CoverletOutput=\"$GITHUB_WORKSPACE/results/\" /p:MergeWith=\"$GITHUB_WORKSPACE/results/coverage.net6.0.json\" /p:CoverletOutputFormat=\"opencover,json\" -m:1
+
+    - name: Upload Coverage Reports to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: $GITHUB_WORKSPACE
+        files: ./results/coverage.net5.0.json,./results/coverage.net6.0.json
+        fail_ci_if_error: false
+        flags: unittests
+
+    # - name: Pack NuGet Packages
+    #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore') }}
+    #   run: dotnet pack --configuration Release /p:Version=$GITVERSION_FULLSEMVER --no-build --no-restore -o packages --include-symbols -p:SymbolPackageFormat=snupkg
+
+    # - name: Publish NuGet Package
+    #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore') }}
+    #   run: dotnet nuget push "packages/*.nupkg" -s https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_TOKEN }}
