@@ -86,7 +86,7 @@ jobs:
       run: dotnet pack --configuration Release /p:Version=$GITVERSION_FULLSEMVER --no-build --no-restore -o packages --include-symbols -p:SymbolPackageFormat=snupkg
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v2.3.0
+      uses: actions/upload-artifact@v2.3.1
       with:
         name: release-packages
         path: |
