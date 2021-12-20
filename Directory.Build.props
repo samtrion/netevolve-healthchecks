@@ -19,12 +19,12 @@
     <PackageId>$(MSBuildProjectName)</PackageId>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl><!-- Insert ProjectURL --></PackageProjectUrl>
-    <PackageTags><!-- Insert Package Tags --></PackageTags>
+    <PackageProjectUrl>https://github.com/samtrion/netevolve-healthchecks</PackageProjectUrl>
+    <PackageTags>HealthChecks;HealthCheck;healthy;</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl><!-- Insert RepositoryURL --></RepositoryUrl>
-    <Authors><!-- Insert Authors --></Authors>
-    <Product><!-- Insert Productname --></Product>
+    <RepositoryUrl>https://github.com/samtrion/netevolve-healthchecks</RepositoryUrl>
+    <Authors>Martin Stühmer</Authors>
+    <Product>NetEvolve HealthChecks</Product>
 
     <CopyrightYearStart>2021</CopyrightYearStart>
     <CopyrightYear>$([System.DateTime]::Now.Year)</CopyrightYear>
