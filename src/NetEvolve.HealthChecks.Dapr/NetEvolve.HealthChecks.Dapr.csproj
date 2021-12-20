@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <PackageTags>$(PackageTags);Dapr</PackageTags>
+    <DefineConstants>USE_HEALTHCHECK;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+  
+  <Import Project="..\NetEvolve.HealthChecks.Abstractions.Shared\NetEvolve.HealthChecks.Abstractions.Shared.projitems" Label="Shared" />
+  
+  <ItemGroup>
+    <PackageReference Include="Dapr.Client" Version="1.5.0" />
+  </ItemGroup>
+
+</Project>
