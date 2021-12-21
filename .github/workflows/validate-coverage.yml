@@ -1,4 +1,4 @@
-name: Build NetEvolve.HealtChecks.Dapr
+name: Test Solution & Code Coverage
 
 # Controls when the workflow will run
 on:
@@ -7,16 +7,14 @@ on:
     branches: [ main ]
     paths:
     - 'Directory.Build.props'
-    - 'src/Directory.Build.props'
-    - 'src/NetEvolve.HealthChecks.Abstractions.Shared/**'
-    - 'src/NetEvolve.HealthChecks.Dapr/**'
+    - 'src/**'
+    - 'tests/**'
   pull_request:
     branches: [ main ]
     paths:
     - 'Directory.Build.props'
-    - 'src/Directory.Build.props'
-    - 'src/NetEvolve.HealthChecks.Abstractions.Shared/**'
-    - 'src/NetEvolve.HealthChecks.Dapr/**'
+    - 'src/**'
+    - 'tests/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,8 +26,6 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   # Disable sending .NET CLI telemetry to Microsoft
   DOTNET_CLI_TELEMETRY_OPTOUT: true
-  # Package name for upload
-  HEALTHCHECK_PACKAGE: "packages/NetEvolve.HealthChecks.Dapr.*.nupkg"
 
 jobs:
   build:
@@ -66,29 +62,17 @@ jobs:
     - name: Build Solution
       run: dotnet build --configuration Release /p:Version=$GITVERSION_FULLSEMVER --no-restore
 
-    - name: Pack NuGet Packages
-      run: dotnet pack --configuration Release /p:Version=$GITVERSION_FULLSEMVER --no-build --no-restore -o packages --include-symbols -p:SymbolPackageFormat=snupkg
+    - name: Test Solution .NET 5
+      run: dotnet test --configuration Release /p:Version=$GITVERSION_FULLSEMVER -f net5.0 --no-build --no-restore --verbosity minimal /p:CollectCoverage=true /p:CoverletOutput=\"$GITHUB_WORKSPACE/results/\" /p:MergeWith=\"$GITHUB_WORKSPACE/results/coverage.net5.0.json\" /p:CoverletOutputFormat=\"opencover,json\" -m:1
 
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v2.3.1
+    - name: Test Solution .NET 6
+      run: dotnet test --configuration Release /p:Version=$GITVERSION_FULLSEMVER -f net6.0 --no-build --no-restore --verbosity minimal /p:CollectCoverage=true /p:CoverletOutput=\"$GITHUB_WORKSPACE/results/\" /p:MergeWith=\"$GITHUB_WORKSPACE/results/coverage.net6.0.json\" /p:CoverletOutputFormat=\"opencover,json\" -m:1
+
+    - name: Upload Coverage Reports to Codecov
+      uses: codecov/codecov-action@v2
       with:
-        name: release-packages
-        path: |
-          packages/*.nupkg
-          packages/*.snupkg
-  
-  publish:
-    name: Publish NuGet Packages
-    needs: [ build ]
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-
-    steps:
-    - name: Download Artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: release-packages
-        path: packages
-
-    - name: Publish NuGet Package
-      run: dotnet nuget push $HEALTHCHECK_PACKAGE -s https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_TOKEN }}
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: $GITHUB_WORKSPACE
+        files: ./results/coverage.net5.0.json,./results/coverage.net6.0.json
+        fail_ci_if_error: false
+        flags: unittests
