@@ -15,12 +15,12 @@ public static class HealthCheckExtensions
   /// <returns>Instance of <see cref="IHealthChecksBuilder"/>.</returns>
   public static IHealthChecksBuilder AddSelf([NotNull] this IHealthChecksBuilder builder, params string[] tags)
   {
-    if (builder.Services.Any(x => x.ServiceType == typeof(HealthCheckMarker)))
+    if (builder.Services.Any(x => x.ServiceType == typeof(SelfHealthCheckMarker)))
     {
       return builder;
     }
 
-    _ = builder.Services.AddSingleton<HealthCheckMarker>();
+    _ = builder.Services.AddSingleton<SelfHealthCheckMarker>();
     return builder.AddCheck("self", Self, new[] { "self", "readiness" }.Union(tags));
 
     static HealthCheckResult Self() => HealthCheckResult.Healthy();
