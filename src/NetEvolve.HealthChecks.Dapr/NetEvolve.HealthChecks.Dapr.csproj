@@ -9,7 +9,7 @@
   <Import Project="..\NetEvolve.HealthChecks.Abstractions.Shared\NetEvolve.HealthChecks.Abstractions.Shared.projitems" Label="Shared" />
   
   <ItemGroup>
-    <PackageReference Include="Dapr.Client" Version="1.5.0" />
+    <PackageReference Include="Dapr.Client" Version="1.6.0" />
   </ItemGroup>
 
 </Project>
